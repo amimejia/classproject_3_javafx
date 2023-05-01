@@ -2,6 +2,8 @@ package edu.guilford;
 
 import java.io.File;
 
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -11,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 public class sviPane extends GridPane {
     // Questions to ask
@@ -18,29 +21,15 @@ public class sviPane extends GridPane {
     // svidata attribute
     private svidata svi;
 
-    // TextFields for name, address, and phone number
-    private TextField nameField;
-    private TextField addressField;
-    private TextField phoneField;
-
     // Button Attribute
     private Button submitDataButton;
 
-    //Image Attribute
+    // Image Attribute
     private ImageView sviImage;
 
-    private String question1_pov;
-    private String question2_umemp;
-    private String question3_no_hs;
-    private String question4_dis;
-    private String question5_o65;
-    private String question6_singlep;
-    private String question7_min;
-    private String question8_leng;
-    private String question9_multi;
-    private String question10_mobile;
-    private String question11_crowd;
-    private String question12_no_veh;
+    //Title Label
+    private Label titleLabel;
+
 
     private RadioButton below_poverty_level_B;
     private RadioButton unemployed_B;
@@ -68,18 +57,16 @@ public class sviPane extends GridPane {
     private RadioButton crowded_housing_B_no;
     private RadioButton no_vehicle_B_no;
 
-    // private boolean below_poverty_level;
-    // private boolean unemployed;
-    // private boolean no_highschool_diploma;
-    // private boolean disabled;
-    // private boolean over_65;
-    // private boolean single_parent_household;
-    // private boolean minority;
-    // private boolean limited_english;
-    // private boolean multi_unit_housing;
-    // private boolean mobile_homes;
-    // private boolean crowded_housing;
-    // private boolean no_vehicle;
+    // TextFields for name, address, and phone number
+    private TextField nameField;
+    private TextField addressField;
+    private TextField phoneField;
+
+    // Labels for name, address, and phone number
+    private Label nameLabel;
+    private Label addressLabel;
+    private Label phoneLabel;
+
 
     // Constructor
     public sviPane(svidata svi) {
@@ -91,12 +78,30 @@ public class sviPane extends GridPane {
         // GridPane.setHalignment(titleLabel, HPos.CENTER);
         // sviPane.add(titleLabel, 0, 0, 2, 1);
 
-        nameField = new TextField();
-        this.add(new Label("Name: " + svi.getName()), 0, 1);
-        addressField = new TextField();
-        this.add(new Label("Address: " + svi.getAddress()), 0, 2);
-        phoneField = new TextField();
-        this.add(new Label("Phone Number: " + svi.getPhone_number()), 0, 3);
+        //Instantiate titleLabel
+        titleLabel = new Label("Social Vulnerability Index");
+        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        this.add(titleLabel, 0, 28);
+
+
+        nameField = new TextField(svi.getName());
+        addressField = new TextField(svi.getAddress());
+        phoneField = new TextField(svi.getPhone_number());
+
+        //Instantiate label atributes
+        nameLabel = new Label("Name");
+        addressLabel = new Label("Address");
+        phoneLabel = new Label("Phone Number");
+
+        //Add label to pane
+        this.add(nameLabel, 0, 1);
+        this.add(addressLabel, 0, 2);
+        this.add(phoneLabel, 0, 3);
+
+        //Add textfield to pane
+        this.add(nameField, 1, 1);
+        this.add(addressField, 1, 2);
+        this.add(phoneField, 1, 3);
 
         // instanitate the submit button
         Button submitDataButton = new Button("Submit your Information");
@@ -105,18 +110,18 @@ public class sviPane extends GridPane {
         // Add a label to the pane
         // I think I can create a loop to add all the questions to the pane but not sure
         // how, what VSC gave me didn't seem right
-        this.add(new Label("Is your household below the poverty level?" + question1_pov), 0, 4);
-        this.add(new Label("Are you unemployed?" + question2_umemp), 0, 5);
-        this.add(new Label("Does you have a highschool diploma?" + question3_no_hs), 0, 6);
-        this.add(new Label("Are you disabled?" + question4_dis), 0, 7);
-        this.add(new Label("Are you over 65?" + question5_o65), 0, 8);
-        this.add(new Label("Are you a single parent household?" + question6_singlep), 0, 9);
-        this.add(new Label("Are you a minority?" + question7_min), 0, 10);
-        this.add(new Label("Do you have limited english?" + question8_leng), 0, 11);
-        this.add(new Label("Do you live in multi unit housing?" + question9_multi), 0, 12);
-        this.add(new Label("Do you live in a mobile home?" + question10_mobile), 0, 13);
-        this.add(new Label("Do you live in crowded housing?" + question11_crowd), 0, 14);
-        this.add(new Label("Do you have a vehicle?" + question12_no_veh), 0, 15);
+        this.add(new Label("Is your household below the poverty level?" ), 0, 4);
+        this.add(new Label("Are you unemployed?" ), 0, 5);
+        this.add(new Label("Does you have a highschool diploma?"), 0, 6);
+        this.add(new Label("Are you disabled?" ), 0, 7);
+        this.add(new Label("Are you over 65?" ), 0, 8);
+        this.add(new Label("Are you a single parent household?" ), 0, 9);
+        this.add(new Label("Are you a minority?" ), 0, 10);
+        this.add(new Label("Do you have limited english?" ), 0, 11);
+        this.add(new Label("Do you live in multi unit housing?"), 0, 12);
+        this.add(new Label("Do you live in a mobile home?" ), 0, 13);
+        this.add(new Label("Do you live in crowded housing?" ), 0, 14);
+        this.add(new Label("Do you have a vehicle?"), 0, 15);
 
         // Give pane a border
         this.setStyle("-fx-border-color: blue");
@@ -178,41 +183,122 @@ public class sviPane extends GridPane {
         // Create a toggle group for each question
         ToggleGroup toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(below_poverty_level_B, below_poverty_level_B_no);
+        if (below_poverty_level_B.isSelected()) {
+            below_poverty_level_B_no.setSelected(false);
+        } else {
+            below_poverty_level_B_no.setSelected(true);
+        }
+
         ToggleGroup tg2 = new ToggleGroup();
         tg2.getToggles().addAll(unemployed_B, unemployed_B_no);
+        if (unemployed_B.isSelected()) {
+            unemployed_B_no.setSelected(false);
+        } else {
+            unemployed_B_no.setSelected(true);
+        }
         ToggleGroup tg3 = new ToggleGroup();
         tg3.getToggles().addAll(no_highschool_diploma_B, no_highschool_diploma_B_no);
+        if (no_highschool_diploma_B.isSelected()) {
+            no_highschool_diploma_B_no.setSelected(false);
+        } else {
+            no_highschool_diploma_B_no.setSelected(true);
+        }
         ToggleGroup tg4 = new ToggleGroup();
         tg4.getToggles().addAll(disabled_B, disabled_B_no);
+        if (disabled_B.isSelected()) {
+            disabled_B_no.setSelected(false);
+        } else {
+            disabled_B_no.setSelected(true);
+        }
         ToggleGroup tg5 = new ToggleGroup();
         tg5.getToggles().addAll(over_65_B, over_65_B_no);
+        if (over_65_B.isSelected()) {
+            over_65_B_no.setSelected(false);
+        } else {
+            over_65_B_no.setSelected(true);
+        }
         ToggleGroup tg6 = new ToggleGroup();
         tg6.getToggles().addAll(single_parent_household_B, single_parent_household_B_no);
+        if (single_parent_household_B.isSelected()) {
+            single_parent_household_B_no.setSelected(false);
+        } else {
+            single_parent_household_B_no.setSelected(true);
+        }
         ToggleGroup tg7 = new ToggleGroup();
         tg7.getToggles().addAll(minority_B, minority_B_no);
+        if (minority_B.isSelected()) {
+            minority_B_no.setSelected(false);
+        } else {
+            minority_B_no.setSelected(true);
+        }
         ToggleGroup tg8 = new ToggleGroup();
         tg8.getToggles().addAll(limited_english_B, limited_english_B_no);
+        if (limited_english_B.isSelected()) {
+            limited_english_B_no.setSelected(false);
+        } else {
+            limited_english_B_no.setSelected(true);
+        }
         ToggleGroup tg9 = new ToggleGroup();
         tg9.getToggles().addAll(multi_unit_housing_B, multi_unit_housing_B_no);
+        if (multi_unit_housing_B.isSelected()) {
+            multi_unit_housing_B_no.setSelected(false);
+        } else {
+            multi_unit_housing_B_no.setSelected(true);
+        }
         ToggleGroup tg10 = new ToggleGroup();
         tg10.getToggles().addAll(mobile_homes_B, mobile_homes_B_no);
+        if (mobile_homes_B.isSelected()) {
+            mobile_homes_B_no.setSelected(false);
+        } else {
+            mobile_homes_B_no.setSelected(true);
+        }
         ToggleGroup tg11 = new ToggleGroup();
         tg11.getToggles().addAll(crowded_housing_B, crowded_housing_B_no);
+        if (crowded_housing_B.isSelected()) {
+            crowded_housing_B_no.setSelected(false);
+        } else {
+            crowded_housing_B_no.setSelected(true);
+        }
+
+
         ToggleGroup tg12 = new ToggleGroup();
         tg12.getToggles().addAll(no_vehicle_B, no_vehicle_B_no);
+        if (no_vehicle_B.isSelected()) {
+            no_vehicle_B_no.setSelected(false);
+        } else {
+            no_vehicle_B_no.setSelected(true);
+        }
 
-        //Image file grab
+        // Image file grab
         File thyou = new File(this.getClass().getResource("thankyou_resized.png").getPath());
 
         // Uniform Resource Identitfier and its similar to a URL
         sviImage = new ImageView(thyou.toURI().toString());
-        
-        //Event handler for the submit button to display image
+
+        // Event handler for the submit button to display image
         submitDataButton.setOnAction(event -> {
             Stage stage = new Stage();
             Scene scene = new Scene(new Group(sviImage));
             stage.setScene(scene);
             stage.show();
+
+            System.out.println("The following data has been stored: ");
+            System.out.println(nameField.getText());
+            System.out.println(addressField.getText());
+            System.out.println(phoneField.getText());
+            System.out.println(below_poverty_level_B);
+            System.out.println(unemployed_B);
+            System.out.println(no_highschool_diploma_B);
+            System.out.println(disabled_B);
+            System.out.println(over_65_B);
+            System.out.println(single_parent_household_B);
+            System.out.println(minority_B);
+            System.out.println(limited_english_B);
+            System.out.println(multi_unit_housing_B);
+            System.out.println(mobile_homes_B);
+            System.out.println(crowded_housing_B);
+            System.out.println(no_vehicle_B);
+            
         });
     }
 
