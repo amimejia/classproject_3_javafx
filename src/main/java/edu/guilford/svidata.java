@@ -22,9 +22,9 @@ public class svidata {
 
     //Constructor that takes three String parameters
     public svidata(){
-        this.name = name;
-        this.address = address;
-        this.phone_number = phone_number;
+        // this.name = name;
+        // this.address = address;
+        // this.phone_number = phone_number;
 
         //Boolean for RadioButtons
         below_poverty_level_B = true;

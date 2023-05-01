@@ -22,7 +22,7 @@ public class sviPane extends GridPane {
     private svidata svi;
 
     // Button Attribute
-    private Button submitDataButton;
+    //private Button submitDataButton;
 
     // Image Attribute
     private ImageView sviImage;
