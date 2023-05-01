@@ -151,7 +151,7 @@ public class sviPane extends GridPane {
         this.add(mobile_homes_B, 1, 13);
         crowded_housing_B = new RadioButton("Crowded Housing");
         this.add(crowded_housing_B, 1, 14);
-        no_vehicle_B = new RadioButton("No Vehicle");
+        no_vehicle_B = new RadioButton("Vehicle");
         this.add(no_vehicle_B, 1, 15);
 
         // Give me a button that have the option to click "No" next to each question
