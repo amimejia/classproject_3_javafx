@@ -19,7 +19,7 @@ public class sviPane extends GridPane {
     // Questions to ask
 
     // svidata attribute
-    private svidata svi;
+    private DataSvi svi;
 
     // Button Attribute
     //private Button submitDataButton;
@@ -69,7 +69,7 @@ public class sviPane extends GridPane {
 
 
     // Constructor
-    public sviPane(svidata svi) {
+    public sviPane(DataSvi svi) {
         // Set the svidata attribute to the svidata object passed in
         this.svi = svi;
 
@@ -89,9 +89,9 @@ public class sviPane extends GridPane {
         phoneField = new TextField(svi.getPhone_number());
 
         //Instantiate label atributes
-        nameLabel = new Label("Name");
-        addressLabel = new Label("Address");
-        phoneLabel = new Label("Phone Number");
+        nameLabel = new Label("Name" + DataSvi.getName());
+        addressLabel = new Label("Address" + DataSvi.getAddress);
+        phoneLabel = new Label("Phone Number" + DataSvi.getPhone_number());
 
         //Add label to pane
         this.add(nameLabel, 0, 1);
@@ -283,23 +283,52 @@ public class sviPane extends GridPane {
             stage.show();
 
             System.out.println("The following data has been stored: ");
-            System.out.println(nameField.getText());
-            System.out.println(addressField.getText());
+            System.out.println(name.getText());
+            System.out.println(address.getText());
             System.out.println(phoneField.getText());
-            System.out.println(below_poverty_level_B);
-            System.out.println(unemployed_B);
-            System.out.println(no_highschool_diploma_B);
-            System.out.println(disabled_B);
-            System.out.println(over_65_B);
-            System.out.println(single_parent_household_B);
-            System.out.println(minority_B);
-            System.out.println(limited_english_B);
-            System.out.println(multi_unit_housing_B);
-            System.out.println(mobile_homes_B);
-            System.out.println(crowded_housing_B);
-            System.out.println(no_vehicle_B);
+            System.out.println(below_poverty_level_B.isSelected());
+            System.out.println(unemployed_B.isSelected());
+            System.out.println(no_highschool_diploma_B.isSelected());
+            System.out.println(disabled_B.isSelected());
+            System.out.println(over_65_B.isSelected());
+            System.out.println(single_parent_household_B.isSelected());
+            System.out.println(minority_B.isSelected());
+            System.out.println(limited_english_B.isSelected());
+            System.out.println(multi_unit_housing_B.isSelected());
+            System.out.println(mobile_homes_B.isSelected());
+            System.out.println(crowded_housing_B.isSelected());
+            System.out.println(no_vehicle_B.isSelected());
             
         });
     }
+     //Getter and setter for SviData
+     public DataSvi getSviData() {
+        return svi;
+    }
+    public void setSviData(DataSvi sviData) {
+        this.svi = svi;
+    }
 
+    //Getter and setter for name
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    //Getter and setter for address
+    public String getAddress(){
+        return address;
+    }
+    public void setAddress(String address){
+        this.address = address;
+    }
+    //Getter and setter for phone number
+    public String getPhone_number(){
+        return phone_number;
+    }
+    public void setPhone_number(String phone_number){
+        this.phone_number = phone_number;
+    }
+    
 }
