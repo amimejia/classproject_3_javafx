@@ -89,9 +89,9 @@ public class sviPane extends GridPane {
         phoneField = new TextField(svi.getPhone_number());
 
         //Instantiate label atributes
-        nameLabel = new Label("Name" + DataSvi.getName());
-        addressLabel = new Label("Address" + DataSvi.getAddress);
-        phoneLabel = new Label("Phone Number" + DataSvi.getPhone_number());
+        nameLabel = new Label("Name" );
+        addressLabel = new Label("Address" );
+        phoneLabel = new Label("Phone Number");
 
         //Add label to pane
         this.add(nameLabel, 0, 1);
@@ -283,8 +283,8 @@ public class sviPane extends GridPane {
             stage.show();
 
             System.out.println("The following data has been stored: ");
-            System.out.println(name.getText());
-            System.out.println(address.getText());
+            System.out.println(nameField.getText());
+            System.out.println(addressField.getText());
             System.out.println(phoneField.getText());
             System.out.println(below_poverty_level_B.isSelected());
             System.out.println(unemployed_B.isSelected());
@@ -309,26 +309,28 @@ public class sviPane extends GridPane {
         this.svi = svi;
     }
 
-    //Getter and setter for name
-    public String getName(){
-        return name;
+    //Getter and setter for nameField
+    public TextField getNameField() {
+        return nameField;
     }
-    public void setName(String name){
-        this.name = name;
+    public void setNameField(TextField nameField) {
+        this.nameField = nameField;
     }
-    //Getter and setter for address
-    public String getAddress(){
-        return address;
+    //Getter and setter for addressField
+    public TextField getAddressField() {
+        return addressField;
     }
-    public void setAddress(String address){
-        this.address = address;
+    public void setAddressField(TextField addressField) {
+        this.addressField = addressField;
     }
-    //Getter and setter for phone number
-    public String getPhone_number(){
-        return phone_number;
+    //Getter and setter for phoneField
+    public TextField getPhoneField() {
+        return phoneField;
     }
-    public void setPhone_number(String phone_number){
-        this.phone_number = phone_number;
+    public void setPhoneField(TextField phoneField) {
+        this.phoneField = phoneField;
     }
-    
+   
+
+
 }
