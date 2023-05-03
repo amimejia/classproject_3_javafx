@@ -21,7 +21,7 @@ public class HowSociallyVulnerable extends Application {
         //Instantiate a Vbox();
         VBox root = new VBox();
         //Instantiate a svidata object
-        svidata svi = new svidata();
+        DataSvi svi = new DataSvi();
 
         //Instantiate a sviPane pane
         root.getChildren().add(new sviPane(svi));
