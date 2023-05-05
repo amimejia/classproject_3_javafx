@@ -294,13 +294,13 @@ public class sviPane extends GridPane {
                 ex.printStackTrace();
                 // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.AlertType.html
                 Alert alert = new Alert(AlertType.ERROR, "Please fill out all fields before submitting the form");
-                alert.showAndWait();
+                alert.show();
             }
             // } catch (Exception e) {
             //     System.out.println("Error: " + e.getMessage());
             // }
 
-            System.out.println("The following data has been stored: ");
+            
             // This where the try-catch should be - what if the text is not what I want it
             // to be?
 
@@ -325,8 +325,12 @@ public class sviPane extends GridPane {
                 if (addressField.getText().trim().isEmpty()) {
                     throw new Exception("There are spaces in your address");
                 }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+            }  catch (Exception ex) {
+                // handle the exception by showing an alert or a message to the user
+                ex.printStackTrace();
+                // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.AlertType.html
+                Alert alert = new Alert(AlertType.ERROR, "Name and address fields cannot be empty or have extra spaces");
+                alert.show();
             }
             System.out.println(phoneField.getText());
             try {
@@ -352,8 +356,12 @@ public class sviPane extends GridPane {
                 if (addressField.getText() == null) {
                     throw new Exception("Address is empty");
                 }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+            }catch (Exception ex) {
+                // handle the exception by showing an alert or a message to the user
+                ex.printStackTrace();
+                // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.AlertType.html
+                Alert alert = new Alert(AlertType.ERROR, "Name and address fields cannot be empty or have extra spaces");
+                alert.show();
             }
 
             System.out.println(below_poverty_level_B.isSelected());
@@ -374,6 +382,8 @@ public class sviPane extends GridPane {
             Scene scene = new Scene(new Group(sviImage));
             stage.setScene(scene);
             stage.show();
+
+            System.out.println("The following data has been stored: ");
         });
     }
 
