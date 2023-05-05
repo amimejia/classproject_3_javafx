@@ -1,14 +1,17 @@
 package edu.guilford;
 
 import java.io.File;
+import java.util.Scanner;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -22,14 +25,13 @@ public class sviPane extends GridPane {
     private DataSvi svi;
 
     // Button Attribute
-    //private Button submitDataButton;
+    // private Button submitDataButton;
 
     // Image Attribute
     private ImageView sviImage;
 
-    //Title Label
+    // Title Label
     private Label titleLabel;
-
 
     private RadioButton below_poverty_level_B;
     private RadioButton unemployed_B;
@@ -67,7 +69,6 @@ public class sviPane extends GridPane {
     private Label addressLabel;
     private Label phoneLabel;
 
-
     // Constructor
     public sviPane(DataSvi svi) {
         // Set the svidata attribute to the svidata object passed in
@@ -78,27 +79,27 @@ public class sviPane extends GridPane {
         // GridPane.setHalignment(titleLabel, HPos.CENTER);
         // sviPane.add(titleLabel, 0, 0, 2, 1);
 
-        //Instantiate titleLabel
+        // Instantiate titleLabel
         titleLabel = new Label("Social Vulnerability Index");
         titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         this.add(titleLabel, 0, 28);
 
-
+        // Instantiate textfield atributes
         nameField = new TextField(svi.getName());
         addressField = new TextField(svi.getAddress());
         phoneField = new TextField(svi.getPhone_number());
 
-        //Instantiate label atributes
-        nameLabel = new Label("Name" );
-        addressLabel = new Label("Address" );
+        // Instantiate label atributes
+        nameLabel = new Label("Name");
+        addressLabel = new Label("Address");
         phoneLabel = new Label("Phone Number");
 
-        //Add label to pane
+        // Add label to pane
         this.add(nameLabel, 0, 1);
         this.add(addressLabel, 0, 2);
         this.add(phoneLabel, 0, 3);
 
-        //Add textfield to pane
+        // Add textfield to pane
         this.add(nameField, 1, 1);
         this.add(addressField, 1, 2);
         this.add(phoneField, 1, 3);
@@ -110,17 +111,17 @@ public class sviPane extends GridPane {
         // Add a label to the pane
         // I think I can create a loop to add all the questions to the pane but not sure
         // how, what VSC gave me didn't seem right
-        this.add(new Label("Is your household below the poverty level?" ), 0, 4);
-        this.add(new Label("Are you unemployed?" ), 0, 5);
+        this.add(new Label("Is your household below the poverty level?"), 0, 4);
+        this.add(new Label("Are you unemployed?"), 0, 5);
         this.add(new Label("Does you have a highschool diploma?"), 0, 6);
-        this.add(new Label("Are you disabled?" ), 0, 7);
-        this.add(new Label("Are you over 65?" ), 0, 8);
-        this.add(new Label("Are you a single parent household?" ), 0, 9);
-        this.add(new Label("Are you a minority?" ), 0, 10);
-        this.add(new Label("Do you have limited english?" ), 0, 11);
+        this.add(new Label("Are you disabled?"), 0, 7);
+        this.add(new Label("Are you over 65?"), 0, 8);
+        this.add(new Label("Are you a single parent household?"), 0, 9);
+        this.add(new Label("Are you a minority?"), 0, 10);
+        this.add(new Label("Do you have limited english?"), 0, 11);
         this.add(new Label("Do you live in multi unit housing?"), 0, 12);
-        this.add(new Label("Do you live in a mobile home?" ), 0, 13);
-        this.add(new Label("Do you live in crowded housing?" ), 0, 14);
+        this.add(new Label("Do you live in a mobile home?"), 0, 13);
+        this.add(new Label("Do you live in crowded housing?"), 0, 14);
         this.add(new Label("Do you have a vehicle?"), 0, 15);
 
         // Give pane a border
@@ -260,7 +261,6 @@ public class sviPane extends GridPane {
             crowded_housing_B_no.setSelected(true);
         }
 
-
         ToggleGroup tg12 = new ToggleGroup();
         tg12.getToggles().addAll(no_vehicle_B, no_vehicle_B_no);
         if (no_vehicle_B.isSelected()) {
@@ -277,15 +277,90 @@ public class sviPane extends GridPane {
 
         // Event handler for the submit button to display image
         submitDataButton.setOnAction(event -> {
+            try{
+            if (nameField.getText().isEmpty() || addressField.getText().isEmpty() || phoneField.getText().isEmpty()) {
+                // show an alert or a message to fill all fields
+            }
+            if (!below_poverty_level_B.isSelected() && !unemployed_B.isSelected() && !no_highschool_diploma_B.isSelected() && !disabled_B.isSelected()
+                    && !over_65_B.isSelected() && !single_parent_household_B.isSelected() && !minority_B.isSelected()
+                    && !limited_english_B.isSelected() && !multi_unit_housing_B.isSelected() && !mobile_homes_B.isSelected()
+                    && !crowded_housing_B.isSelected() && !no_vehicle_B.isSelected()) {
+                // show an alert or a message to select at least one option
+                return;
+            }
+            throw new Exception("User left empty fields. Please fill all fields");
+         } catch (Exception ex) {
+                // handle the exception by showing an alert or a message to the user
+                ex.printStackTrace();
+                // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.AlertType.html
+                Alert alert = new Alert(AlertType.ERROR, ex.getMessage());
+                alert.showAndWait();
+            }
+            // } catch (Exception e) {
+            //     System.out.println("Error: " + e.getMessage());
+            // }
+
             Stage stage = new Stage();
             Scene scene = new Scene(new Group(sviImage));
             stage.setScene(scene);
             stage.show();
 
             System.out.println("The following data has been stored: ");
-            System.out.println(nameField.getText());
-            System.out.println(addressField.getText());
+            // This where the try-catch should be - what if the text is not what I want it
+            // to be?
+
+            try {
+                System.out.println(nameField.getText());
+                // if user puts a space it will be null as well (if you trim all the spaces, and
+                // there's nothing left)
+                if ((nameField.getText() == null)) {
+                    throw new Exception("Name is empty");
+                }
+                if ((nameField.getText().trim().isEmpty())) {
+                    throw new Exception("There are spaces in the beginning of the name text field");
+                }
+                if (nameField.getText().matches(".*\\d.*")) {
+                    // d stands for digit here, it's looking for a digit that's surounding by any
+                    // (zero or more) characters (.*) representing
+                    throw new Exception("There are numbers in your name");
+                }
+                if ((addressField.getText() == null)) {
+                    throw new Exception("Addrress is empty");
+                }
+                if (addressField.getText().trim().isEmpty()) {
+                    throw new Exception("There are spaces in your address");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
             System.out.println(phoneField.getText());
+            try {
+                if (phoneField.getText() == null) {
+                    throw new Exception("Phone number is empty");
+                }
+                if (phoneField.getText().trim().isEmpty()) {
+                    throw new Exception("There are spaces in your phone number");
+                }
+                if (phoneField.getText().matches(".*[a-zA-Z]+.*")) {
+                    // a-zA-Z stands for any letter, it's looking for a letter that's surounding by
+                    // any (zero or more) characters (.*) representing
+                    throw new Exception("There are letters in your phone number");
+                }
+                if (phoneField.getText().length() != 10) {
+                    throw new Exception("Your phone number is not 10 digits");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            System.out.println(addressField.getText());
+            try{
+                if (addressField.getText() == null) {
+                    throw new Exception("Address is empty");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+
             System.out.println(below_poverty_level_B.isSelected());
             System.out.println(unemployed_B.isSelected());
             System.out.println(no_highschool_diploma_B.isSelected());
@@ -298,39 +373,43 @@ public class sviPane extends GridPane {
             System.out.println(mobile_homes_B.isSelected());
             System.out.println(crowded_housing_B.isSelected());
             System.out.println(no_vehicle_B.isSelected());
-            
         });
     }
-     //Getter and setter for SviData
-     public DataSvi getSviData() {
+
+    // Getter and setter for SviData
+    public DataSvi getSviData() {
         return svi;
     }
+
     public void setSviData(DataSvi sviData) {
         this.svi = svi;
     }
 
-    //Getter and setter for nameField
+    // Getter and setter for nameField
     public TextField getNameField() {
         return nameField;
     }
+
     public void setNameField(TextField nameField) {
         this.nameField = nameField;
     }
-    //Getter and setter for addressField
+
+    // Getter and setter for addressField
     public TextField getAddressField() {
         return addressField;
     }
+
     public void setAddressField(TextField addressField) {
         this.addressField = addressField;
     }
-    //Getter and setter for phoneField
+
+    // Getter and setter for phoneField
     public TextField getPhoneField() {
         return phoneField;
     }
+
     public void setPhoneField(TextField phoneField) {
         this.phoneField = phoneField;
     }
-   
-
 
 }
