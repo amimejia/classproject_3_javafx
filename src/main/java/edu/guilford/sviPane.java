@@ -293,17 +293,12 @@ public class sviPane extends GridPane {
                 // handle the exception by showing an alert or a message to the user
                 ex.printStackTrace();
                 // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.AlertType.html
-                Alert alert = new Alert(AlertType.ERROR, ex.getMessage());
+                Alert alert = new Alert(AlertType.ERROR, "Please fill out all fields before submitting the form");
                 alert.showAndWait();
             }
             // } catch (Exception e) {
             //     System.out.println("Error: " + e.getMessage());
             // }
-
-            Stage stage = new Stage();
-            Scene scene = new Scene(new Group(sviImage));
-            stage.setScene(scene);
-            stage.show();
 
             System.out.println("The following data has been stored: ");
             // This where the try-catch should be - what if the text is not what I want it
@@ -373,6 +368,12 @@ public class sviPane extends GridPane {
             System.out.println(mobile_homes_B.isSelected());
             System.out.println(crowded_housing_B.isSelected());
             System.out.println(no_vehicle_B.isSelected());
+            
+            Stage stage = new Stage();
+
+            Scene scene = new Scene(new Group(sviImage));
+            stage.setScene(scene);
+            stage.show();
         });
     }
 
