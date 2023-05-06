@@ -1,0 +1,6 @@
+﻿Here is a list prediction errors and my solution:
+* If the namefield is left empty or address field is left empty, or phone field is empty, and all the radio buttons are left selected as is its default method, then the program will throw a new exception with the message: User Left Empty Fields, Please fill all fields. This try-catch takes into consideration if a user accidentally clicked or tries to click “Submit Information” and leaves the default radio buttons. 
+* If the namfield is null, has spaces in the front or there are digits in their name
+* For the phone field, if it is null, there are spaces or letters in the phone number
+* If the Address is empty
+* Because I have a nested try-catch as you suggested, if any of these errors come up they are met with a Alert Box that notifies the user of what incorrect or insufficient information was attempted to be submitted. Once the user has filled everything out, the new Stage with a “Thank you” picture appears.
