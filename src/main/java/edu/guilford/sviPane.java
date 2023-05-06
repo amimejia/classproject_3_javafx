@@ -276,36 +276,27 @@ public class sviPane extends GridPane {
         sviImage = new ImageView(thyou.toURI().toString());
 
         // Event handler for the submit button to display image
+        
         submitDataButton.setOnAction(event -> {
             try{
             if (nameField.getText().isEmpty() || addressField.getText().isEmpty() || phoneField.getText().isEmpty()) {
                 // show an alert or a message to fill all fields
+            throw new Exception("User left empty fields. Please fill all fields");
             }
             if (!below_poverty_level_B.isSelected() && !unemployed_B.isSelected() && !no_highschool_diploma_B.isSelected() && !disabled_B.isSelected()
                     && !over_65_B.isSelected() && !single_parent_household_B.isSelected() && !minority_B.isSelected()
                     && !limited_english_B.isSelected() && !multi_unit_housing_B.isSelected() && !mobile_homes_B.isSelected()
                     && !crowded_housing_B.isSelected() && !no_vehicle_B.isSelected()) {
                 // show an alert or a message to select at least one option
-                return;
+                throw new Exception("This currently at default. Ensure your answers.");
             }
-            throw new Exception("User left empty fields. Please fill all fields");
-         } catch (Exception ex) {
-                // handle the exception by showing an alert or a message to the user
-                ex.printStackTrace();
-                // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.AlertType.html
-                Alert alert = new Alert(AlertType.ERROR, "Please fill out all fields before submitting the form");
-                alert.show();
-            }
-            // } catch (Exception e) {
-            //     System.out.println("Error: " + e.getMessage());
-            // }
-
-            
-            // This where the try-catch should be - what if the text is not what I want it
-            // to be?
-
-            try {
-                System.out.println(nameField.getText());
+        //  } catch (Exception ex) {
+        //         // handle the exception by showing an alert or a message to the user
+        //         ex.printStackTrace();
+        //         // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.AlertType.html
+        //         Alert alert = new Alert(AlertType.ERROR, "Please fill out all fields before submitting the form");
+        //         alert.show();
+        //     }
                 // if user puts a space it will be null as well (if you trim all the spaces, and
                 // there's nothing left)
                 if ((nameField.getText() == null)) {
@@ -325,15 +316,13 @@ public class sviPane extends GridPane {
                 if (addressField.getText().trim().isEmpty()) {
                     throw new Exception("There are spaces in your address");
                 }
-            }  catch (Exception ex) {
-                // handle the exception by showing an alert or a message to the user
-                ex.printStackTrace();
-                // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.AlertType.html
-                Alert alert = new Alert(AlertType.ERROR, "Name and address fields cannot be empty or have extra spaces");
-                alert.show();
-            }
-            System.out.println(phoneField.getText());
-            try {
+            // }  catch (Exception ex) {
+            //     // handle the exception by showing an alert or a message to the user
+            //     ex.printStackTrace();
+            //     // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Alert.AlertType.html
+            //     Alert alert = new Alert(AlertType.ERROR, "Name and address fields cannot be empty or have extra spaces");
+            //     alert.show();
+            //}
                 if (phoneField.getText() == null) {
                     throw new Exception("Phone number is empty");
                 }
@@ -348,14 +337,20 @@ public class sviPane extends GridPane {
                 if (phoneField.getText().length() != 10) {
                     throw new Exception("Your phone number is not 10 digits");
                 }
-            } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-            System.out.println(addressField.getText());
-            try{
+            // } catch (Exception e) {
+            //     System.out.println("Error: " + e.getMessage());
+            // }
                 if (addressField.getText() == null) {
                     throw new Exception("Address is empty");
                 }
+                Stage stage = new Stage();
+
+            Scene scene = new Scene(new Group(sviImage));
+            stage.setScene(scene);
+            stage.show();
+
+            System.out.println("The following data has been stored: ");
+
             }catch (Exception ex) {
                 // handle the exception by showing an alert or a message to the user
                 ex.printStackTrace();
@@ -364,6 +359,10 @@ public class sviPane extends GridPane {
                 alert.show();
             }
 
+        
+            System.out.println(nameField.getText());
+            System.out.println(phoneField.getText());
+            System.out.println(addressField.getText());
             System.out.println(below_poverty_level_B.isSelected());
             System.out.println(unemployed_B.isSelected());
             System.out.println(no_highschool_diploma_B.isSelected());
@@ -377,13 +376,6 @@ public class sviPane extends GridPane {
             System.out.println(crowded_housing_B.isSelected());
             System.out.println(no_vehicle_B.isSelected());
             
-            Stage stage = new Stage();
-
-            Scene scene = new Scene(new Group(sviImage));
-            stage.setScene(scene);
-            stage.show();
-
-            System.out.println("The following data has been stored: ");
         });
     }
 
